@@ -7,18 +7,26 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    public function list()
-    {
-        $activeCustomers = Customer::active()->get();
-        $inactiveCustomers = Customer::inactive()->get();
+    public function index()
+    {   
+        $customers = Customer::all();
+        
+        return view('customers.index',compact('customers'));
+        //$activeCustomers = Customer::active()->get();
+        //$inactiveCustomers = Customer::inactive()->get();
         //dd($activeCustomers);
-        $companies = Company::all();
-        return view('internals.customers',compact('activeCustomers','inactiveCustomers','companies'));
+        //return view('customers.index',compact('activeCustomers','inactiveCustomers'));
 
-       // return view('internals.customers',[
+       // return view('customers',[
        //     'activeCustomers' => $activeCustomers,
        //     'inactiveCustomers' => $inactiveCustomers,
        // ]);
+    }
+
+    public function create()
+    {
+        $companies = Company::all();
+        return view('customers.create',compact('companies'));
     }
     
     public function store()
@@ -39,6 +47,13 @@ class CustomersController extends Controller
         //$customer->active = request('active');
         //$customer->save();
         
-        return back();
+        return redirect('customers');
+    }
+
+    public function show(Customer $customer) // route model binding
+    {
+        //$customer = Customer::where('id', $customer)->firstOrFail();
+        
+        return view('customers.show',compact('customer'))   ;
     }
 }
