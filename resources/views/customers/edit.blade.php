@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('title','Edit Details for '. $customer->name)
 
@@ -8,7 +8,7 @@
         <h1>Edit details for {{ $customer->name }}</h1>
     </div>
 </div>
-    <form action="/customers/{{$customer->id}}" method="POST">
+    <form action="{{ route('customers.update',['customer' => $customer]) }}" method="POST">
         
         @include('customers.form')
     <button type="submit" class="btn btn-primary">Save Customer</button>
