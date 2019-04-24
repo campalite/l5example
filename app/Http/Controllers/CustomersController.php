@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 use App\Customer;
 use App\Company;
+use App\Listener;
+use App\Events\NewCustomerHasRegisteredEvent;
+use App\Mail\WelcomeNewUserMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+   
 
 class CustomersController extends Controller
 {
@@ -38,24 +43,23 @@ class CustomersController extends Controller
     
     public function store()
     {
-        Customer::create($this->validateRequest());
+        $customer = Customer::create($this->validateRequest());
+
+        event(new NewCustomerHasRegisteredEvent($customer));
+
+       // return redirect('customers');
             //$data = request()->validate([
             //    'name' => 'required|min:3',
             //    'email' => 'required|email',
             //    'active' => 'required',
-            //    'company_id' => 'required',
-            //    
-            //]);
+            //    'company_id' => 'required',    ]);
         //dd($data);
-
         //$Customer = Customer::create($data);
         //$customer = new Customer();
         //$customer->name = request('name');
         //$customer->email = request('email');
         //$customer->active = request('active');
         //$customer->save();
-        
-        return redirect('customers');
     }
 
     public function show(Customer $customer) // route model binding
