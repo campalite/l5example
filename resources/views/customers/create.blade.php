@@ -8,8 +8,11 @@
         <h1>Add New Customer</h1>
     </div>
 </div>
-    <form action="/customers" method="POST">
-        @include('customers.form')
+<div class="row">
+    <div class="col-12">
+        <form action="/customers" method="POST" enctype="multipart/form-data">
+            @include('customers.form')
+
     <button type="submit" class="btn btn-primary">Add Customer</button>
 
         
