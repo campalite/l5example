@@ -21,8 +21,9 @@ class CustomersController extends Controller
 
     public function index()
     {   
-        $customers = Customer::all();
-        
+        //$customers = Customer::all();
+        $customers = Customer::with('company')->get();
+        //for optimization query request (eager loading)
         return view('customers.index',compact('customers'));
         //$activeCustomers = Customer::active()->get();
         //$inactiveCustomers = Customer::inactive()->get();
