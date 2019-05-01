@@ -8,6 +8,7 @@ use App\Events\NewCustomerHasRegisteredEvent;
 use App\Mail\WelcomeNewUserMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
    
 
 class CustomersController extends Controller
@@ -122,6 +123,9 @@ class CustomersController extends Controller
             $customer->update([
                 'image' => request()->image->store('uploads','public'),
             ]);
+            //http://image.intervention.io/
+            $image = Image::make(public_path('storage/' . $customer->image))->fit(300,300);
+            $image->save();
         }
     }
     
