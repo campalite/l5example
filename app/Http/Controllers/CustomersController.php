@@ -22,7 +22,7 @@ class CustomersController extends Controller
     public function index()
     {   
         //$customers = Customer::all();
-        $customers = Customer::with('company')->get();
+        $customers = Customer::with('company')->paginate(20);
         //for optimization query request (eager loading)
         return view('customers.index',compact('customers'));
         //$activeCustomers = Customer::active()->get();
